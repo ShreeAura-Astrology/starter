@@ -1,5 +1,6 @@
 import { Client, Users } from 'node-appwrite';
-
+const CryptoJS = require("crypto");
+var request = require('request');
 // This Appwrite function will be executed every time your function is triggered
 export default async ({ req, res, log, error }) => {
   // You can use the Appwrite SDK to interact with other services
