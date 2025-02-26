@@ -4,7 +4,6 @@ const {
   createSign,
   createVerify,
 } = await import('crypto');
-
 import request from 'request';
 // This Appwrite function will be executed every time your function is triggered
 export default async ({ req, res, log, error }) => {
