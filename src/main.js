@@ -3,7 +3,7 @@ const {
   generateKeyPairSync,
   createSign,
   createVerify,
-} = await import('node:crypto');
+} = await import('crypto');
 
 import request from 'request';
 // This Appwrite function will be executed every time your function is triggered
