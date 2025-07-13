@@ -1,6 +1,8 @@
 import { Client, Users } from 'node-appwrite';
 import { getStaticFile } from './utils.js';
-import { OpenAIApi, Configuration } from 'openai';
+import OpenAI from 'openai';
+
+//import { OpenAIApi, Configuration } from 'openai';
 // const {
 //   generateKeyPairSync,
 //   createSign,
@@ -29,10 +31,13 @@ if (!req.body.prompt && typeof req.body.prompt !== "string") {
   return res.json({ ok: false, error: "Missing required field `prompt`" }, 400);
 }
 
-const openai = new OpenAIApi(
-  new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
-  })
+const openai = new OpenAI(
+  {
+  apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
+}
+  //new Configuration({
+    //apiKey: process.env.OPENAI_API_KEY,
+  //})
 );
   try {
   const response = await openai.createChatCompletion({
