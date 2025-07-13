@@ -62,7 +62,7 @@ const openai = new OpenAI(
   //log('response.data.choices[0].message.content :' + response.data.choices[0].message.content);
   const reponse = await openai.responses.create({
   model: 'gpt-4o',
-  instructions: 'Summarize the content which you receive',
+  instructions: 'Summarize the content which you receive from user.If you are not sure about file content or codebase structure pertaining to the user’s request, use your tools to read files and gather the relevant information: do NOT guess or make up an answer.',
   input: req.body.prompt,
 });
   //const completion = response.data.choices[0].message?.content;
