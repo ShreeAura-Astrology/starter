@@ -53,7 +53,7 @@ const openai = new OpenAI(
 );
   try {
   const response = await openai.chat.completions.create({
-    model: 'gpt-3.5-turbo',
+    model: 'gpt-4.1',
     max_tokens: parseInt(process.env.OPENAI_MAX_TOKENS ?? '512'),
     messages: [{ role: 'user', content: req.body.prompt }],
   });
