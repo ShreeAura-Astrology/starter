@@ -1,6 +1,6 @@
 import { Client, Users } from 'node-appwrite';
 import { getStaticFile } from './utils.js';
-
+import { OpenAIApi, Configuration } from 'openai';
 // const {
 //   generateKeyPairSync,
 //   createSign,
@@ -25,7 +25,26 @@ export default async ({ req, res, log, error }) => {
   } catch(err) {
     error("Could not list users: " + err.message);
   }
+if (!req.body.prompt && typeof req.body.prompt !== "string") {
+  return res.json({ ok: false, error: "Missing required field `prompt`" }, 400);
+}
 
+const openai = new OpenAIApi(
+  new Configuration({
+    apiKey: process.env.OPENAI_API_KEY,
+  })
+);
+  try {
+  const response = await openai.createChatCompletion({
+    model: 'gpt-3.5-turbo',
+    max_tokens: parseInt(process.env.OPENAI_MAX_TOKENS ?? '512'),
+    messages: [{ role: 'user', content: req.body.prompt }],
+  });
+  const completion = response.data.choices[0].message?.content;
+  return res.json({ ok: true, completion }, 200);
+} catch (err) {
+  return res.json({ ok: false, error: 'Failed to query model.' }, 500);
+}
   // The req object contains the request data
   if (req.path === "/ping") {
     // Use res object to respond with text(), json(), or binary()
