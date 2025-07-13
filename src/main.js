@@ -62,12 +62,13 @@ const openai = new OpenAI(
   //log('response.data.choices[0].message.content :' + response.data.choices[0].message.content);
   const reponse = await openai.responses.create({
   model: 'gpt-4o',
-  instructions: 'You are a coding assistant that talks like a pirate',
+  instructions: 'Summarize the content which you receive',
   input: req.body.prompt,
 });
   //const completion = response.data.choices[0].message?.content;
   //const completion = response.choices[0].message?.content;
-  const completion = response.output_text;
+  log(`Response from gpt: ${reponse.total}`);
+  const completion = reponse.output_text;
     return res.json({ ok: true, completion }, 200);
 } catch (err) {
   return res.json({ ok: false, error: 'Failed to query model.' + err }, 500);
