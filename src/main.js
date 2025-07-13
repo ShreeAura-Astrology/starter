@@ -60,7 +60,7 @@ const openai = new OpenAI(
   const completion = response.data.choices[0].message?.content;
   return res.json({ ok: true, completion }, 200);
 } catch (err) {
-  return res.json({ ok: false, error: 'Failed to query model.' }, 500);
+  return res.json({ ok: false, error: 'Failed to query model.' + err }, 500);
 }
 
   return res.json({
