@@ -60,7 +60,7 @@ const openai = new OpenAI(
   // });
   //log('response.choices[0].message.content :' + response.choices[0].message.content);
   //log('response.data.choices[0].message.content :' + response.data.choices[0].message.content);
-  const reponse = await client.responses.create({
+  const reponse = await openai.responses.create({
   model: 'gpt-4o',
   instructions: 'You are a coding assistant that talks like a pirate',
   input: req.body.prompt,
