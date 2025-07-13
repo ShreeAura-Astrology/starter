@@ -1,4 +1,6 @@
 import { Client, Users } from 'node-appwrite';
+import { getStaticFile } from './utils.js';
+
 // const {
 //   generateKeyPairSync,
 //   createSign,
@@ -30,7 +32,11 @@ export default async ({ req, res, log, error }) => {
     // Don't forget to return a response!
     return res.text("Pong");
   }
-
+  if (req.method === 'GET') {
+    return res.text(getStaticFile('index.html'), 200, {
+      'Content-Type': 'text/html; charset=utf-8',
+    });
+  }
   return res.json({
     motto: "Build like a team of hundreds_",
     learn: "https://appwrite.io/docs",
