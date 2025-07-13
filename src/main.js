@@ -27,6 +27,18 @@ export default async ({ req, res, log, error }) => {
   } catch(err) {
     error("Could not list users: " + err.message);
   }
+
+  // The req object contains the request data
+  if (req.path === "/ping") {
+    // Use res object to respond with text(), json(), or binary()
+    // Don't forget to return a response!
+    return res.text("Pong");
+  }
+  if (req.method === 'GET') {
+    return res.text(getStaticFile('index.html'), 200, {
+      'Content-Type': 'text/html; charset=utf-8',
+    });
+  }
 if (!req.body.prompt && typeof req.body.prompt !== "string") {
   return res.json({ ok: false, error: "Missing required field `prompt`" }, 400);
 }
@@ -50,17 +62,7 @@ const openai = new OpenAI(
 } catch (err) {
   return res.json({ ok: false, error: 'Failed to query model.' }, 500);
 }
-  // The req object contains the request data
-  if (req.path === "/ping") {
-    // Use res object to respond with text(), json(), or binary()
-    // Don't forget to return a response!
-    return res.text("Pong");
-  }
-  if (req.method === 'GET') {
-    return res.text(getStaticFile('index.html'), 200, {
-      'Content-Type': 'text/html; charset=utf-8',
-    });
-  }
+
   return res.json({
     motto: "Build like a team of hundreds_",
     learn: "https://appwrite.io/docs",
