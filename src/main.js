@@ -51,18 +51,24 @@ const openai = new OpenAI(
     //apiKey: process.env.OPENAI_API_KEY,
   //})
 );
+  // Completion Technique
   try {
-  const response = await openai.chat.completions.create({
-    model: 'gpt-4.1',
-   // max_tokens: parseInt(process.env.OPENAI_MAX_TOKENS ?? '512'),
-    messages: [{ role: 'user', content: req.body.prompt }],
-  });
-  log('response.choices[0].message.content :' + response.choices[0].message.content);
-  log('response.data.choices[0].message.content :' + response.data.choices[0].message.content);
-    
+  // const response = await openai.chat.completions.create({
+  //   model: 'gpt-4.1',
+  //  // max_tokens: parseInt(process.env.OPENAI_MAX_TOKENS ?? '512'),
+  //   messages: [{ role: 'user', content: req.body.prompt }],
+  // });
+  //log('response.choices[0].message.content :' + response.choices[0].message.content);
+  //log('response.data.choices[0].message.content :' + response.data.choices[0].message.content);
+  const reponse = await client.responses.create({
+  model: 'gpt-4o',
+  instructions: 'You are a coding assistant that talks like a pirate',
+  input: req.body.prompt,
+});
   //const completion = response.data.choices[0].message?.content;
-  const completion = response.choices[0].message?.content;
-  return res.json({ ok: true, completion }, 200);
+  //const completion = response.choices[0].message?.content;
+  const completion = response.output_text;
+    return res.json({ ok: true, completion }, 200);
 } catch (err) {
   return res.json({ ok: false, error: 'Failed to query model.' + err }, 500);
 }
