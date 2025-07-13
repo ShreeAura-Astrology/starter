@@ -52,12 +52,16 @@ const openai = new OpenAI(
   //})
 );
   try {
-  const response = await openai.createChatCompletion({
+  const response = await openai.chat.completions.create({
     model: 'gpt-3.5-turbo',
     max_tokens: parseInt(process.env.OPENAI_MAX_TOKENS ?? '512'),
     messages: [{ role: 'user', content: req.body.prompt }],
   });
-  const completion = response.data.choices[0].message?.content;
+  log('response.choices[0].message.content :' + response.choices[0].message.content);
+  log('response.data.choices[0].message.content :' + response.data.choices[0].message.content);
+    
+  //const completion = response.data.choices[0].message?.content;
+  const completion = response.choices[0].message?.content;
   return res.json({ ok: true, completion }, 200);
 } catch (err) {
   return res.json({ ok: false, error: 'Failed to query model.' + err }, 500);
