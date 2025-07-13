@@ -54,7 +54,7 @@ const openai = new OpenAI(
   try {
   const response = await openai.chat.completions.create({
     model: 'gpt-4.1',
-    max_tokens: parseInt(process.env.OPENAI_MAX_TOKENS ?? '512'),
+   // max_tokens: parseInt(process.env.OPENAI_MAX_TOKENS ?? '512'),
     messages: [{ role: 'user', content: req.body.prompt }],
   });
   log('response.choices[0].message.content :' + response.choices[0].message.content);
