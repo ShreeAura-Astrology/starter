@@ -1,7 +1,9 @@
 import { Client, Users } from 'node-appwrite';
 import { getStaticFile } from './utils.js';
-import OpenAI from 'openai';
+#import OpenAI from 'openai';
+from openai import OpenAI;
 
+print(response.choices[0].message.content)
 //import { OpenAIApi, Configuration } from 'openai';
 // const {
 //   generateKeyPairSync,
