@@ -1,6 +1,6 @@
 import { Client, Users } from 'node-appwrite';
 import { getStaticFile } from './utils.js';
-#import OpenAI from 'openai';
+// import OpenAI from 'openai';
 from openai import OpenAI;
 
 // This Appwrite function will be executed every time your function is triggered
