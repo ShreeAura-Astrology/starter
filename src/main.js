@@ -45,6 +45,7 @@ if (!req.body.prompt && typeof req.body.prompt !== "string") {
 
 const openai = new OpenAI(
   {
+    base_url="https://api.aimlapi.com/v1",
   apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
 }
   //new Configuration({
@@ -53,6 +54,13 @@ const openai = new OpenAI(
 );
   // Completion Technique
   try {
+   const response = await client.chat.completions.create(
+    model="gpt-4o",
+    instructions: 'Summarize the content which you receive from user.If you are not sure about file content or codebase structure pertaining to the user’s request, use your tools to read files and gather the relevant information: do NOT guess or make up an answer.',
+    messages=[{"role": "user", "content": req.body.prompt}]
+)
+
+log('response.choices[0].message.content :' + response.choices[0].message.content)
   // const response = await openai.chat.completions.create({
   //   model: 'gpt-4.1',
   //  // max_tokens: parseInt(process.env.OPENAI_MAX_TOKENS ?? '512'),
@@ -60,15 +68,12 @@ const openai = new OpenAI(
   // });
   //log('response.choices[0].message.content :' + response.choices[0].message.content);
   //log('response.data.choices[0].message.content :' + response.data.choices[0].message.content);
-  const reponse = await openai.responses.create({
-  model: 'gpt-4o',
-  instructions: 'Summarize the content which you receive from user.If you are not sure about file content or codebase structure pertaining to the user’s request, use your tools to read files and gather the relevant information: do NOT guess or make up an answer.',
-  input: req.body.prompt,
-});
-  //const completion = response.data.choices[0].message?.content;
-  //const completion = response.choices[0].message?.content;
-  log(`Response from gpt: ${reponse.total}`);
-  const completion = reponse.output_text;
+//   const reponse = await openai.responses.create({
+//   model: 'gpt-4o',
+//   instructions: 'Summarize the content which you receive from user.If you are not sure about file content or codebase structure pertaining to the user’s request, use your tools to read files and gather the relevant information: do NOT guess or make up an answer.',
+//   input: req.body.prompt,
+// });
+  const completion = response.choices[0].message.content;
     return res.json({ ok: true, completion }, 200);
 } catch (err) {
   return res.json({ ok: false, error: 'Failed to query model.' + err }, 500);
