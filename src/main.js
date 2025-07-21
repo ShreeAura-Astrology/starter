@@ -3,14 +3,6 @@ import { getStaticFile } from './utils.js';
 #import OpenAI from 'openai';
 from openai import OpenAI;
 
-print(response.choices[0].message.content)
-//import { OpenAIApi, Configuration } from 'openai';
-// const {
-//   generateKeyPairSync,
-//   createSign,
-//   createVerify,
-// } = await import('crypto');
-//import { request } from 'request';
 // This Appwrite function will be executed every time your function is triggered
 export default async ({ req, res, log, error }) => {
   // You can use the Appwrite SDK to interact with other services
