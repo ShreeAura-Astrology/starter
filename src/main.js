@@ -2,6 +2,7 @@ import { Client, Users } from 'node-appwrite';
 import { getStaticFile } from './utils.js';
 import OpenAI from 'openai';
 
+
 // This Appwrite function will be executed every time your function is triggered
 export default async ({ req, res, log, error }) => {
   // You can use the Appwrite SDK to interact with other services
@@ -38,12 +39,9 @@ if (!req.body.prompt && typeof req.body.prompt !== "string") {
 
 const openai = new OpenAI(
   {
-    base_url="https://api.aimlapi.com/v1",
+    base_url:"https://api.aimlapi.com/v1",
   apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
 }
-  //new Configuration({
-    //apiKey: process.env.OPENAI_API_KEY,
-  //})
 );
   // Completion Technique
   try {
