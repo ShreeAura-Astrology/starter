@@ -47,7 +47,7 @@ const openai = new OpenAI(
 );
   // Completion Technique
   try {
-
+log('Invoking fetch to https://api.aimlapi.com/chat/completions using ' + )
  fetch("https://api.aimlapi.com/chat/completions", {
   method: "POST",
   headers: {
@@ -60,7 +60,7 @@ const openai = new OpenAI(
     messages: [
       {
         role: "user",
-        content: "What kind of model are you?",
+        content: req.body.prompt,
       },
     ],
     max_tokens: 512,
