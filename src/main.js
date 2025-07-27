@@ -1,6 +1,7 @@
 import { Client, Users } from 'node-appwrite';
 import { getStaticFile } from './utils.js';
 import OpenAI from 'openai';
+import * as https from 'https';
 
 
 // This Appwrite function will be executed every time your function is triggered
@@ -46,12 +47,40 @@ const openai = new OpenAI(
 );
   // Completion Technique
   try {
-  const response = await openai.chat.completions.create({
-  model: "gpt-4o",
-  instructions: 'Summarize the content which you receive from user. If you are not sure about file content or codebase structure pertaining to the user’s request, use your tools to read files and get the information.',
-  messages: [{ "role": "user", "content": req.body.prompt }]
-});
-log('response.choices[0].message.content :' + response.choices[0].message.content)
+
+ fetch("https://api.aimlapi.com/chat/completions", {
+  method: "POST",
+  headers: {
+    Authorization: "Bearer " + process.env['OPENAI_API_KEY'],
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    model: "gpt-4o",
+    instructions: 'Summarize the content which you receive from user. If you are not sure about file content or codebase structure pertaining to the user’s request, use your tools to read files and get the information.',
+    messages: [
+      {
+        role: "user",
+        content: "What kind of model are you?",
+      },
+    ],
+    max_tokens: 512,
+    stream: false,
+  }),
+})
+  .then((res) => res.json())
+   .then((data) => {
+    console.log("Response data:", data);
+     const completion = data.choices[0].message.content;
+    return res.json({ ok: true, completion }, 200);  
+  })
+
+    
+//   const response = await openai.chat.completions.create({
+//   model: "gpt-4o",
+//   instructions: 'Summarize the content which you receive from user. If you are not sure about file content or codebase structure pertaining to the user’s request, use your tools to read files and get the information.',
+//   messages: [{ "role": "user", "content": req.body.prompt }]
+// });
+//log('response.choices[0].message.content :' + response.choices[0].message.content)
   // const response = await openai.chat.completions.create({
   //   model: 'gpt-4.1',
   //  // max_tokens: parseInt(process.env.OPENAI_MAX_TOKENS ?? '512'),
@@ -64,8 +93,8 @@ log('response.choices[0].message.content :' + response.choices[0].message.conten
 //   instructions: 'Summarize the content which you receive from user.If you are not sure about file content or codebase structure pertaining to the user’s request, use your tools to read files and gather the relevant information: do NOT guess or make up an answer.',
 //   input: req.body.prompt,
 // });
-  const completion = response.choices[0].message.content;
-    return res.json({ ok: true, completion }, 200);
+    //  const completion = response.choices[0].message.content;
+    // return res.json({ ok: true, completion }, 200);
 } catch (err) {
   return res.json({ ok: false, error: 'Failed to query model.' + err }, 500);
 }
