@@ -103,11 +103,38 @@ return res.json({ ok: true, completion }, 200);
 }
 
   return res.json({
-    motto: "Build like a team of hundreds_",
-    learn: "https://appwrite.io/docs",
-    connect: "https://appwrite.io/discord",
-    getInspired: "https://builtwith.appwrite.io",
-    jwt :"TestStarter",
-    completion : 'Default Response'
-  });
+    "id": "chatcmpl-BxvCure28S6Q7esfOtGqA8LA3lxd4",
+    "object": "chat.completion",
+    "choices": [
+        {
+            "index": 0,
+            "finish_reason": "stop",
+            "logprobs": null,
+            "message": {
+                "role": "assistant",
+                "content": "This is the dummy response from local code.",
+                "refusal": null,
+                "annotations": []
+            }
+        }
+    ],
+    "created": 1753620956,
+    "model": "gpt-4o-2024-08-06",
+    "usage": {
+        "prompt_tokens": 105,
+        "completion_tokens": 2079,
+        "total_tokens": 2184,
+        "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+        },
+        "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+        }
+    },
+    "system_fingerprint": "fp_a288987b44"
+});
 };
