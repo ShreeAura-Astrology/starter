@@ -48,7 +48,7 @@ const openai = new OpenAI(
   // Completion Technique
   try {
 log('Invoking fetch to https://api.aimlapi.com/chat/completions using ' + req.body.prompt)
- fetch("https://api.aimlapi.com/chat/completions", {
+ const response = fetch("https://api.aimlapi.com/chat/completions", {
   method: "POST",
   headers: {
     Authorization: "Bearer " + process.env['OPENAI_API_KEY'],
@@ -66,15 +66,17 @@ log('Invoking fetch to https://api.aimlapi.com/chat/completions using ' + req.bo
     max_tokens: 512,
     stream: false,
   }),
-})
-  .then((res) => res.json())
-   .then((data) => {
+});
+  // .then((res) => res.json())
+  //  .then((data) => {
+  //   log("Response data:", data);
+  //    const completion = data.choices[0].message.content;
+  //   return res.json({ ok: true, completion }, 200);  
+  // })
+ const data = await response.json();
     log("Response data:", data);
-     const completion = data.choices[0].message.content;
-    return res.json({ ok: true, completion }, 200);  
-  })
-
-    
+    const completion = data.choices[0].message.content;
+return res.json({ ok: true, completion }, 200);  
 //   const response = await openai.chat.completions.create({
 //   model: "gpt-4o",
 //   instructions: 'Summarize the content which you receive from user. If you are not sure about file content or codebase structure pertaining to the user’s request, use your tools to read files and get the information.',
@@ -99,11 +101,12 @@ log('Invoking fetch to https://api.aimlapi.com/chat/completions using ' + req.bo
   return res.json({ ok: false, error: 'Failed to query model.' + err }, 500);
 }
 
-  // return res.json({
-  //   motto: "Build like a team of hundreds_",
-  //   learn: "https://appwrite.io/docs",
-  //   connect: "https://appwrite.io/discord",
-  //   getInspired: "https://builtwith.appwrite.io",
-  //   jwt :"TestStarter"
-  // });
+  return res.json({
+    motto: "Build like a team of hundreds_",
+    learn: "https://appwrite.io/docs",
+    connect: "https://appwrite.io/discord",
+    getInspired: "https://builtwith.appwrite.io",
+    jwt :"TestStarter",
+    completion : 'Default Response'
+  });
 };
