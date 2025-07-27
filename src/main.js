@@ -68,13 +68,11 @@ log('Invoking fetch to https://api.aimlapi.com/chat/completions using ' + req.bo
     "max_tokens": 512,
     "stream": false
 })
-});
-  // .then((res) => res.json())
-  //  .then((data) => {
-  //   log("Response data:", data);
+}).then((data) => {
+     log("Response data in then:", data);
   //    const completion = data.choices[0].message.content;
   //   return res.json({ ok: true, completion }, 200);  
-  // })
+   })
  //const data = await response.json();
     
     log("Response data:", await response);
