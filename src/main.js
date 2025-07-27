@@ -36,7 +36,7 @@ export default async ({ req, res, log, error }) => {
 if (!req.body.prompt && typeof req.body.prompt !== "string") {
   return res.json({ ok: false, error: "Missing required field `prompt`" }, 400);
 }
-
+log('API Key: ' + process.env['OPENAI_API_KEY']);
 const openai = new OpenAI(
   {
     base_url:"https://api.aimlapi.com/v1",
