@@ -47,7 +47,7 @@ const openai = new OpenAI(
 );
   // Completion Technique
   try {
-log('Invoking fetch to https://api.aimlapi.com/chat/completions using ' + )
+log('Invoking fetch to https://api.aimlapi.com/chat/completions using ' + req.body.prompt)
  fetch("https://api.aimlapi.com/chat/completions", {
   method: "POST",
   headers: {
