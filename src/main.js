@@ -69,7 +69,7 @@ const openai = new OpenAI(
 })
   .then((res) => res.json())
    .then((data) => {
-    console.log("Response data:", data);
+    log("Response data:", data);
      const completion = data.choices[0].message.content;
     return res.json({ ok: true, completion }, 200);  
   })
@@ -99,11 +99,11 @@ const openai = new OpenAI(
   return res.json({ ok: false, error: 'Failed to query model.' + err }, 500);
 }
 
-  return res.json({
-    motto: "Build like a team of hundreds_",
-    learn: "https://appwrite.io/docs",
-    connect: "https://appwrite.io/discord",
-    getInspired: "https://builtwith.appwrite.io",
-    jwt :"TestStarter"
-  });
+  // return res.json({
+  //   motto: "Build like a team of hundreds_",
+  //   learn: "https://appwrite.io/docs",
+  //   connect: "https://appwrite.io/discord",
+  //   getInspired: "https://builtwith.appwrite.io",
+  //   jwt :"TestStarter"
+  // });
 };
