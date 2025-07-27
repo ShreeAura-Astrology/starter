@@ -40,8 +40,8 @@ log('API Key: ' + process.env['OPENAI_API_KEY']);
 const openai = new OpenAI(
   {
  //   base_url:"https://api.aimlapi.com/v1",
-  base_url:"https://api.aimlapi.com/chat/completions"
-  apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
+  base_url:"https://api.aimlapi.com/chat/completions",
+  apiKey: process.env['OPENAI_API_KEY']
 }
 );
   // Completion Technique
