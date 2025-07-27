@@ -55,17 +55,17 @@ log('Invoking fetch to https://api.aimlapi.com/chat/completions using ' + req.bo
     "Content-Type": "application/json",
   },
   body: JSON.stringify({
-    model: "gpt-4o",
-    instructions: 'Summarize the content which you receive from user. If you are not sure about file content or codebase structure pertaining to the user’s request, use your tools to read files and get the information.',
-    messages: [
-      {
-        role: "user",
-        content: req.body.prompt,
-      },
+    "model": "gpt-4o",
+    "instructions": "Summarize the content which you receive from user. If you are not sure about file content or codebase structure pertaining to the user’s request, use your tools to read files and get the information.",
+    "messages": [
+        {
+            "role": "user",
+            "content": req.body.prompt 
+        }
     ],
-    max_tokens: 512,
-    stream: false,
-  }),
+    "max_tokens": 512,
+    "stream": false
+})
 });
   // .then((res) => res.json())
   //  .then((data) => {
