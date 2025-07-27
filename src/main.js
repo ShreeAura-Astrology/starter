@@ -77,7 +77,7 @@ log('Invoking fetch to https://api.aimlapi.com/chat/completions using ' + req.bo
   // })
  //const data = await response.json();
     
-    log("Response data:", response);
+    log("Response data:", await response);
     const completion = response.choices[0].message.content;
 return res.json({ ok: true, completion }, 200);  
 //   const response = await openai.chat.completions.create({
