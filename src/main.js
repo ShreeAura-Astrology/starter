@@ -45,7 +45,7 @@ const openai = new OpenAI(
 );
   // Completion Technique
   try {
-  const response = await client.chat.completions.create({
+  const response = await openai.chat.completions.create({
   model: "gpt-4o",
   instructions: 'Summarize the content which you receive from user. If you are not sure about file content or codebase structure pertaining to the user’s request, use your tools to read files and get the information.',
   messages: [{ "role": "user", "content": req.body.prompt }]
