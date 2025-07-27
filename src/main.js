@@ -72,7 +72,7 @@ export default async ({ req, res, log, error }) => {
 
     const json = await response.json();
    log("Response from beeceptor:", json);
-   return res.json({ ok: true, completion: json }, 200);
+   return res.json({ ok: true, completion: json.choices[0].message.content }, 200);
     //const data = await response.json();
 
     log("Response data:", await response.json());
