@@ -50,7 +50,7 @@ export default async ({ req, res, log, error }) => {
     log('Invoking fetch to https://api.aimlapi.com/chat/completions using ' + req.body.prompt);
     //https://shreeaura.free.beeceptor.com https://api.aimlapi.com/chat/completions
 
-    const response = await fetch("https://shreeaura.free.beeceptor.com", {
+    const response = await fetch("https://api.aimlapi.com/chat/completions", {
       method: "POST",
       headers: {
         "Authorization": "Bearer " + process.env['OPENAI_API_KEY'],
