@@ -47,11 +47,13 @@ const openai = new OpenAI(
 );
   // Completion Technique
   try {
-log('Invoking fetch to https://api.aimlapi.com/chat/completions using ' + req.body.prompt)
- const response = await fetch("https://api.aimlapi.com/chat/completions", {
+log('Invoking fetch to https://api.aimlapi.com/chat/completions using ' + req.body.prompt);
+    //https://shreeaura.free.beeceptor.com https://api.aimlapi.com/chat/completions
+    
+ const response = await fetch("https://shreeaura.free.beeceptor.com", {
   method: "POST",
   headers: {
-    Authorization: "Bearer " + process.env['OPENAI_API_KEY'],
+    "Authorization": "Bearer " + process.env['OPENAI_API_KEY'],
     "Content-Type": "application/json",
   },
   body: JSON.stringify({
