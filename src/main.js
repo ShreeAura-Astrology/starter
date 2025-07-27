@@ -68,11 +68,11 @@ export default async ({ req, res, log, error }) => {
         "max_tokens": 512,
         "stream": false
       })
-    }).then((data) => {
-      log("Response data in then:", data);
-      //    const completion = data.choices[0].message.content;
-      //   return res.json({ ok: true, completion }, 200);  
-    })
+    });
+
+    const json = await apiResponse.json();
+   log("Response from beeceptor:", json);
+   return res.json({ ok: true, completion: json }, 200);
     //const data = await response.json();
 
     log("Response data:", await response.json());
