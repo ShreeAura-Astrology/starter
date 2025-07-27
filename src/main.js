@@ -75,9 +75,9 @@ export default async ({ req, res, log, error }) => {
    return res.json({ ok: true, completion: json.choices[0].message.content }, 200);
     //const data = await response.json();
 
-    log("Response data:", await response.json());
-    const completion = response.choices[0].message.content;
-    return res.json({ ok: true, completion }, 200);
+    // log("Response data:", await response.json());
+    // const completion = response.choices[0].message.content;
+    // return res.json({ ok: true, completion }, 200);
     //   const response = await openai.chat.completions.create({
     //   model: "gpt-4o",
     //   instructions: 'Summarize the content which you receive from user. If you are not sure about file content or codebase structure pertaining to the user’s request, use your tools to read files and get the information.',
