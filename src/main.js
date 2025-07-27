@@ -73,9 +73,10 @@ log('Invoking fetch to https://api.aimlapi.com/chat/completions using ' + req.bo
   //    const completion = data.choices[0].message.content;
   //   return res.json({ ok: true, completion }, 200);  
   // })
- const data = await response.json();
-    log("Response data:", data);
-    const completion = data.choices[0].message.content;
+ //const data = await response.json();
+    
+    log("Response data:", response);
+    const completion = response.choices[0].message.content;
 return res.json({ ok: true, completion }, 200);  
 //   const response = await openai.chat.completions.create({
 //   model: "gpt-4o",
