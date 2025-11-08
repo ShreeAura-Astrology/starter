@@ -81,6 +81,7 @@ export default async ({ req, res, log, error }) => {
   });
 
   async function callopenrouter() {
+    log('Invoking OpenRouter chat completion with provided prompt:' + req.body.prompt);
     const completion = await openrouter.chat.completions.create({
       model: 'openai/gpt-4o',
       //instructions: 'You are an Astrologer agent named `ShreeAura AI`. You will receive the prediction result from user. You should summarize the content which you receive from user. If you are not sure about file content or codebase structure pertaining to the user’s request, use your tools to read files and get the information.',
