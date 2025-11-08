@@ -1,5 +1,6 @@
 import { Client, Users } from 'node-appwrite';
 import { getStaticFile } from './utils.js';
+import { formatModelOutputToHtml } from './formatModelOutput.js';
 import OpenAI from 'openai';
 import * as https from 'https';
 
@@ -97,9 +98,11 @@ export default async ({ req, res, log, error }) => {
       })
     });
 
-    const json = await response.json();
-    log("Response from AIML API:", json);
-    return res.json({ ok: true, completion: json.choices[0].message.content }, 200);
+  const json = await response.json();
+  log("Response from AIML API:", json);
+  const content = json.choices?.[0]?.message?.content ?? '';
+  const html = formatModelOutputToHtml(content);
+  return res.json({ ok: true, completion: content, html }, 200);
     //const data = await response.json();
 
     // log("Response data:", await response.json());
