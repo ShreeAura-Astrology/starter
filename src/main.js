@@ -92,7 +92,7 @@ export default async ({ req, res, log, error }) => {
           content: req.body.prompt,
         },
       ],
-      max_tokens: 4000
+      max_tokens: 3997
     });
 
     // Return the raw completion object for the caller to handle formatting/response.
