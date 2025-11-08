@@ -8,22 +8,24 @@
 
     <script>
       async function onSubmit(prompt) {
-        const response = await fetch('/', {
-          method: 'POST',
-          body: JSON.stringify({ prompt }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+          const response = await fetch('/', {
+            method: 'POST',
+            body: JSON.stringify({ prompt }),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
 
-        const json = await response.json();
+          const json = await response.json();
 
-        if (!json.ok || json.error) {
-          alert(json.error);
+          if (!json.ok || json.error) {
+            alert(json.error);
+          }
+
+          // Prefer server-produced HTML when available (formatted & escaped on server).
+          // Fallback to plain `completion` text if `html` is not provided.
+          return json.html ?? json.completion;
         }
-
-        return json.completion;
-      }
     </script>
 
     <script src="https://unpkg.com/alpinejs@3.14.9/dist/cdn.min.js" defer></script>
