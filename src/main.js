@@ -37,7 +37,32 @@ export default async ({ req, res, log, error }) => {
   if (!req.body.prompt && typeof req.body.prompt !== "string") {
     return res.json({ ok: false, error: "Missing required field `prompt`" }, 400);
   }
-  log('API Key: ' + process.env['OPENAI_API_KEY']);
+  log('aimlapi API Key: ' + process.env['OPENAI_API_KEY']);
+  log('OpenRouter API Key: ' + process.env['OPEN_ROUTER_KEY']);
+  const openrouter = new OpenAI({
+  baseURL: 'https://openrouter.ai/api/v1',
+  apiKey: process.env['OPEN_ROUTER_KEY'], // Your OpenRouter API key
+  defaultHeaders: {
+    'HTTP-Referer': 'https://shreeauraastrology.wixsite.com/', // Optional. Site URL for rankings on openrouter.ai.
+    'X-Title': 'ShreeAura Astrology', // Optional. Site title for rankings on openrouter.ai.
+  },
+});
+
+async function callopenrouter() {
+  const completion = await openrouter.chat.completions.create({
+    model: 'openai/gpt-4o',
+    instructions: 'You are an Astrologer agent named `ShreeAura AI` . You will receive the prediction result from user. You should summarize the content which you receive from user. If you are not sure about file content or codebase structure pertaining to the user’s request, use your tools to read files and get the information.',
+    messages: [
+      {
+        role: 'user',
+        content: req.body.prompt,
+      },
+    ],
+  });
+
+  console.log(completion.choices[0].message);
+  return res.json({ ok: true, completion: completion.choices[0].message }, 200);
+}
   const openai = new OpenAI(
     {
       //   base_url:"https://api.aimlapi.com/v1",
@@ -47,6 +72,8 @@ export default async ({ req, res, log, error }) => {
   );
   // Completion Technique
   try {
+    output = await callopenrouter();
+    return output;
     log('Invoking fetch to https://api.aimlapi.com/chat/completions using ' + req.body.prompt);
     //https://shreeaura.free.beeceptor.com https://api.aimlapi.com/chat/completions
 
@@ -71,7 +98,7 @@ export default async ({ req, res, log, error }) => {
     });
 
     const json = await response.json();
-   log("Response from beeceptor:", json);
+   log("Response from AIML API:", json);
    return res.json({ ok: true, completion: json.choices[0].message.content }, 200);
     //const data = await response.json();
 
