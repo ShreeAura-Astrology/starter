@@ -44,6 +44,7 @@ export default async ({ req, res, log, error }) => {
     log('OPEN_ROUTER_KEY set: ' + Boolean(process.env['OPEN_ROUTER_KEY']));
   } catch (e) {
     // no-op
+    log('Error checking API keys: No enviromnment variables set for API keys OPENAI_API_KEY and OPEN_ROUTER_KEY');
   }
 
   // Helper: scrub secret-looking fields from objects before returning/logging
@@ -90,6 +91,7 @@ export default async ({ req, res, log, error }) => {
           content: req.body.prompt,
         },
       ],
+      max_tokens: 4000
     });
 
     // Return the raw completion object for the caller to handle formatting/response.
